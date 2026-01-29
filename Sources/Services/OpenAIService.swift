@@ -50,7 +50,7 @@ class OpenAIService {
     private let apiKey: String
     private let baseURL = "https://api.openai.com/v1/chat/completions"
     
-    init(apiKey: String = APIConfig.openAIKey) {
+    init(apiKey: String = Config.openAIKey) {
         self.apiKey = apiKey
     }
     
@@ -98,6 +98,3 @@ class OpenAIService {
     }
 }
 
-struct APIConfig {
-    static let openAIKey = "YOUR_API_KEY_HERE"
-}
