@@ -37,10 +37,10 @@ cd ai-chat-swiftui
 open AIChat.xcodeproj
 ```
 
-3. Добавьте ваш OpenAI API ключ:
+3. Добавьте ваш OpenAI API ключ в файл `Sources/Config.swift`:
 
 ```swift
-struct APIConfig {
+struct Config {
     static let openAIKey = "YOUR_API_KEY_HERE"
 }
 ```
@@ -64,20 +64,16 @@ struct ContentView: View {
 ```
 AIChat/
 ├── Models/
-│   ├── Message.swift
-│   ├── Chat.swift
-│   └── OpenAIModels.swift
+│   ├── ChatMessage.swift
+│   └── Conversation.swift
 ├── Views/
 │   ├── ChatView.swift
-│   ├── MessageBubble.swift
-│   └── InputBar.swift
+│   └── MessageRow.swift
 ├── ViewModels/
 │   └── ChatViewModel.swift
 ├── Services/
-│   ├── OpenAIService.swift
-│   └── StorageService.swift
-└── Utils/
-    └── APIConfig.swift
+│   └── OpenAIService.swift
+└── Config.swift
 ```
 
 ## Функции
@@ -87,13 +83,8 @@ AIChat/
 Приложение использует SSE (Server-Sent Events) для получения ответов в реальном времени:
 
 ```swift
-func streamCompletion(messages: [Message]) async throws {
-    let stream = try await openAI.streamChat(messages: messages)
-    for try await chunk in stream {
-        await MainActor.run {
-            currentResponse += chunk.content
-        }
-    }
+func streamMessage(messages: [ChatMessage]) -> AsyncThrowingStream<String, Error> {
+    // Streaming implementation
 }
 ```
 
@@ -142,10 +133,10 @@ cd ai-chat-swiftui
 open AIChat.xcodeproj
 ```
 
-3. Add your OpenAI API key:
+3. Add your OpenAI API key in `Sources/Config.swift`:
 
 ```swift
-struct APIConfig {
+struct Config {
     static let openAIKey = "YOUR_API_KEY_HERE"
 }
 ```
@@ -169,20 +160,16 @@ struct ContentView: View {
 ```
 AIChat/
 ├── Models/
-│   ├── Message.swift
-│   ├── Chat.swift
-│   └── OpenAIModels.swift
+│   ├── ChatMessage.swift
+│   └── Conversation.swift
 ├── Views/
 │   ├── ChatView.swift
-│   ├── MessageBubble.swift
-│   └── InputBar.swift
+│   └── MessageRow.swift
 ├── ViewModels/
 │   └── ChatViewModel.swift
 ├── Services/
-│   ├── OpenAIService.swift
-│   └── StorageService.swift
-└── Utils/
-    └── APIConfig.swift
+│   └── OpenAIService.swift
+└── Config.swift
 ```
 
 ## Features
@@ -192,13 +179,8 @@ AIChat/
 The app uses SSE (Server-Sent Events) for real-time responses:
 
 ```swift
-func streamCompletion(messages: [Message]) async throws {
-    let stream = try await openAI.streamChat(messages: messages)
-    for try await chunk in stream {
-        await MainActor.run {
-            currentResponse += chunk.content
-        }
-    }
+func streamMessage(messages: [ChatMessage]) -> AsyncThrowingStream<String, Error> {
+    // Streaming implementation
 }
 ```
 
